@@ -23,7 +23,7 @@
 
         function addShibe() {     
             let arr = [];
-            let response = fetch('http://shibe.online/api/shibes?count=4&urls=true&httpsUrls=true')
+            let response = fetch('https://shibe.online/api/shibes?count=4&urls=true&httpsUrls=true')
             .then(res => res.json())
             .then(data => {
                 for (index = 0; index < data.length; index += 1) {
