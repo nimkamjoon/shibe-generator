@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shibe generator</title>
+</head>
+<body onload="makeBoxes(), addShibe()">
+    <div class="content">
+        <button onClick="window.location.reload()">gib me the shib</button>
+        <div class="imgContain"></div>
+    </div>
+    <script>
+        function makeBoxes() {
+            let container = document.querySelector(".imgContain");
+            for (let i = 0; i < 4; i += 1) {
+                let box = document.createElement('div');
+                box.className = 'box';
+                container.appendChild(box);          
+            }
+        };
+
+        function addShibe() {     
+            let arr = [];
+            let response = fetch('http://shibe.online/api/shibes?count=4&urls=true&httpsUrls=true')
+            .then(res => res.json())
+            .then(data => {
+                for (index = 0; index < data.length; index += 1) {
+                    arr.push(data[index]); // push every element here
+                }
+            })
+            .then(() => {
+                let box = document.getElementsByClassName("box");
+                for (let i = 0; i < arr.length; i += 1) {
+                    box[i].style.backgroundImage = 'url(' + arr[i] + ')';             
+                }
+            }); 
+        }
+    </script>
+    <style>
+        .content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .box {
+            width: 230px;
+            height: 230px;
+            background-color: rgb(255, 215, 85);
+            margin: 0px 15px;
+            border-radius: 5px;     
+            background-size: cover;       
+            background-repeat: no-repeat;
+            box-shadow: 6px 10px 15px rgb(172, 172, 172);
+        }
+
+        .imgContain {
+            display: flex;
+            flex-direction: row;
+            margin-top: 40px;
+        }
+
+        button {
+            border: none;
+            padding: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color:  rgb(255, 215, 85);
+        }
+    </style>
+</body>
+</html>
